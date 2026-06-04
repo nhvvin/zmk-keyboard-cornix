@@ -35,6 +35,20 @@
 #define NAV   2
 
 / {
+    macros {
+        // Tap-only TAB: emits press+release as soon as the key is hit, so the
+        // host never sees a long press and OS-level auto-repeat does not kick
+        // in. Hold the key as long as you want — only one TAB is sent.
+        tap_tab: tap_tab {
+            label = "TAP_TAB";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&macro_tap &kp TAB>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -52,7 +66,7 @@
             //   R-thumb(r7):   MEH_T(ESC) RCTRL RGUI LALT MO(1) SPACE
 
             bindings = <
-&kp TAB         &kp Q     &kp W     &kp E     &kp R     &kp T                                       &kp Y      &kp U     &kp I      &kp O     &kp P      &kp BSPC
+&tap_tab        &kp Q     &kp W     &kp E     &kp R     &kp T                                       &kp Y      &kp U     &kp I      &kp O     &kp P      &kp BSPC
 &mt HYPER RET   &kp A     &kp S     &kp D     &kp F     &kp G                                       &kp H      &kp J     &kp K      &kp L     &kp SEMI   &mt MEH SQT
 &kp LSHFT       &kp Z     &kp X     &kp C     &kp V     &kp B          &kp C_MUTE   &mkp MB3        &kp N      &kp M     &kp COMMA  &kp DOT   &kp FSLH   &kp SQT
 &kp LCTRL       &kp LGUI  &kp LALT  &kp LGUI  &mo NAV   &mt HYPER RET                                &kp SPACE  &mo NUMS  &kp LALT   &kp RGUI  &kp RCTRL  &mt MEH ESC
@@ -75,7 +89,7 @@
             //   R-thumb:  --    --  --  trans --  --
 
             bindings = <
-&kp ESC    &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                                  &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp BSPC
+&tap_tab   &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                                  &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp BSPC
 &kp LSHFT  &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                                  &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT   &kp BSLH   &kp GRAVE
 &kp LSHFT  &kp N6    &kp N7    &kp N8    &kp N9    &kp N0       &kp C_MUTE   &mkp MB3      &kp UNDER  &kp PLUS   &kp ASTRK  &kp HASH   &kp PIPE   &kp TILDE
 &none      &none     &none     &trans    &none     &none                                    &none      &none      &trans     &none      &none      &none
@@ -100,7 +114,7 @@
             // USER00..USER02 are empty RMK macro slots -> &none.
 
             bindings = <
-&kp TAB    &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                                  &kp N6    &kp N7    &kp N8   &kp N9     &kp N0   &kp BSPC
+&tap_tab   &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                                  &kp N6    &kp N7    &kp N8   &kp N9     &kp N0   &kp BSPC
 &none      &none     &none     &none     &none     &kp C_VOL_UP                            &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT  &none    &none
 &none      &none     &none     &none     &none     &kp C_VOL_DN  &kp C_MUTE   &mkp MB3     &none     &none     &none    &none      &none    &none
 &none      &none     &none     &trans    &none     &none                                   &none     &none     &trans   &none      &none    &none
