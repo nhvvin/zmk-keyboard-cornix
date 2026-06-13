@@ -41,12 +41,6 @@ config ZMK_SPLIT_ROLE_CENTRAL
 config ZMK_SPLIT_BLE_ROLE_CENTRAL
 	default n
 
-# Add keyboard debouncing
-config ZMK_KSCAN_DEBOUNCE_PRESS_MS
-    default 3
-config ZMK_KSCAN_DEBOUNCE_RELEASE_MS
-    default 3
-
 endif # BOARD_CORNIX_RIGHT
 
 # Common options for both sides
@@ -55,6 +49,14 @@ if BOARD_CORNIX_LEFT  || BOARD_CORNIX_PH_LEFT || BOARD_CORNIX_RIGHT
 
 #config BT_CTLR
 #    default BT
+
+# Keyboard debouncing — pinned to ZMK default (5ms) on both halves.
+# Previously the peripheral was at 3ms which let switch chatter through.
+# Bump higher (8–12ms) if chatter returns.
+config ZMK_KSCAN_DEBOUNCE_PRESS_MS
+    default 5
+config ZMK_KSCAN_DEBOUNCE_RELEASE_MS
+    default 5
 
 config BOARD_CORNIX_CHARGER
     default y
